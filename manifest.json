@@ -1,7 +1,9 @@
 {
-	"name": "Random Shipit Generator",
-	"version": "0.0.10",
+	"name": "Random Emoji Generator",
+	"version": "0.1.1",
 	"manifest_version": 2,
+	"homepage_url": "https://github.com/FDiskas/randomEmojiGenerator",
+	"author": "martinburdon",
 	"content_scripts": [
 		{
 			"matches": ["https://github.com/*", "http://github.com/*"],
