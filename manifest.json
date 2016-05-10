@@ -6,7 +6,7 @@
 	"author": "martinburdon",
 	"content_scripts": [
 		{
-			"matches": ["https://github.com/*", "http://github.com/*"],
+			"matches": ["*://github.com/*", "*://gist.github.com/*"],
 			"js": [
 				"libs/jQuery.min.js",
 				"content.js"
