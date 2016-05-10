@@ -896,7 +896,8 @@ mtb.randomShipit = mtb.randomShipit || {};
 			imageUrl = chrome.extension.getURL('images/xmas/38x38.png');
 		};
 
-		$('.js-comment-and-button').after('<button type="button" class="btn js-random-shipit"><span class="btn-text">Random</span><img class="btn-icon" height="20" width="20" src="' + imageUrl + '"></button>');
+		$('#partial-new-comment-form-actions')
+			.append('<button type="button" class="btn js-random-shipit"><span class="btn-text">Random</span><img class="btn-icon" height="20" width="20" src="' + imageUrl + '"></button>');
 	};
 
 	this.isDecember = function() {
