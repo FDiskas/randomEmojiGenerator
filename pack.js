@@ -1,7 +1,10 @@
 var chromeExe = require('chrome-location');
-var fs = require('fs-extra');
+var fs = require("fs");
 var path = require('path');
-require('colors');
+var fsex = require('fs-extra');
+var archiver = require('archiver');
+var colors = require('colors');
+var prettyBytes = require('pretty-bytes');
 
 // http://nodejs.org/api.html#_child_processes
 var exec = require('child_process').exec;
@@ -19,13 +22,39 @@ child = exec(command, function (error) {
   }
   else {
     var fileName = `${src}/manifest.json`;
-    var file = require(fileName);
+    var extension = require(fileName);
 
-    fs.remove(src, function (err) {
-      if (err) {
-        return console.log(' ✘ '.black.bold.bgRed + ' ' + err.red);
+
+    // Zip dir
+    var output = fs.createWriteStream(`${dist}/${extension.name}.zip`);
+    var archive = archiver.create('zip', {});
+
+    archive.pipe(output);
+    archive.bulk([
+      {
+        expand: true,
+        cwd: src,
+        src: ["**/*"],
+        dot: false
       }
-      console.log(' ✔ '.black.bold.bgGreen + ` Build success. Released version: ${file.version}`.green);
-    })
+    ]);
+    archive.finalize();
+
+    archive.on('error', function(err) {
+      return console.log(' ✘ '.black.bold.bgRed + `  ${err}`.red);
+    });
+
+    output.on('close', function() {
+
+      fsex.remove(src, function (err) {
+        if (err) {
+          return console.log(' ✘ '.black.bold.bgRed + ' ' + err.red);
+        }
+
+        console.log(' ✔ '.black.bold.bgGreen + ` Build success. Released version:${extension.version} Zip size:${prettyBytes(archive.pointer())}`.green);
+      })
+
+    });
+
   }
 });
