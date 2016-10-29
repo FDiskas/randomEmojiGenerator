@@ -4,7 +4,7 @@
   "manifest_version": 2,
   "homepage_url": "https://github.com/FDiskas/randomEmojiGenerator",
   "author": "FDisk",
-  "description": "Inspired by the Ship It Button extension, this extension special for GitHub. It provides a button to add a random Emoji icon to comments. Added all possible emoji to the list.",
+  "description": "Inspired by the Ship It Button extension. On Github page adds a button for a random Emoji icon.",
   "content_scripts": [
     {
       "matches": [
