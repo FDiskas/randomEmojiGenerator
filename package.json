@@ -1,0 +1,56 @@
+{
+  "name": "random-emoji-generator",
+  "version": "1.0.1",
+  "description": "A Chrome extension for adding button with a random emoji comment.",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "jspm install",
+    "precommit": "npm test",
+    "test": "node run-tests",
+    "release": "node release",
+    "dev": "npm run build:compile && npm run build:copy",
+    "build": "npm run build:clean && npm run build:compile && npm run build:copy && npm run build:pack",
+    "build:clean": "rimraf ./dist",
+    "build:compile": "jspm bundle-sfx src/main --minify dist/src/build.js",
+    "build:copy": "copyfiles ./src/manifest.json 'src/images/**/*' 'src/css/**/*' dist",
+    "build:pack": "node pack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FDiskas/randomEmojiGenerator.git"
+  },
+  "keywords": [
+    "Emoji",
+    "Generator",
+    "Random"
+  ],
+  "author": "FDiskas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FDiskas/randomEmojiGenerator/issues"
+  },
+  "homepage": "https://github.com/FDiskas/randomEmojiGenerator#readme",
+  "jspm": {
+    "directories": {
+      "packages": "libs"
+    },
+    "dependencies": {
+      "jquery": "npm:jquery@^3.1.1"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  },
+  "devDependencies": {
+    "chrome-location": "git+https://github.com/CodersAKL/chrome-location.git#master",
+    "colors": "^1.1.2",
+    "copyfiles": "^1.0.0",
+    "fs-extra": "^0.30.0",
+    "jspm": "^0.16.47",
+    "rimraf": "^2.5.4",
+    "semver": "^5.3.0"
+  },
+  "dependencies": {}
+}

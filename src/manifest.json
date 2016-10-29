@@ -1,0 +1,30 @@
+{
+  "name": "Random Emoji Generator",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "homepage_url": "https://github.com/FDiskas/randomEmojiGenerator",
+  "author": "martinburdon",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://github.com/*",
+        "*://gist.github.com/*"
+      ],
+      "js": [
+        "build.js"
+      ],
+      "css": [
+        "css/styles.css"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "images/normal/16x16.png",
+    "48": "images/normal/48x48.png",
+    "128": "images/normal/128x128.png"
+  },
+  "web_accessible_resources": [
+    "images/normal/*.png",
+    "images/xmas/*.png"
+  ]
+}

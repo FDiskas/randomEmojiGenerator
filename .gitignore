@@ -1,0 +1,12 @@
+### Dependency directories
+node_modules/
+libs/
+
+### Node
+*.log
+
+### JetBrains
+.idea
+
+### Builds
+dist/
