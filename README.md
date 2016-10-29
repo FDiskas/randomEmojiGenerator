@@ -1,4 +1,4 @@
-# ![donation-128px](https://cloud.githubusercontent.com/assets/468006/19832656/841378e6-9e32-11e6-97a7-2ddcaec1c41b.png) random Emo Generator
+# ![donation-128px](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MEYBUEDYFS5SG) random Emo Generator
 A Chrome extension for adding button with a random emoji comment.
 forked from [martinburdon/randomShipitGenerator](https://github.com/martinburdon/randomShipitGenerator)
 
