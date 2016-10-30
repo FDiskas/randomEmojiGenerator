@@ -1,6 +1,6 @@
 {
   "name": "Random Emoji Generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 2,
   "homepage_url": "https://github.com/FDiskas/randomEmojiGenerator",
   "author": "FDisk",
@@ -12,7 +12,7 @@
         "*://gist.github.com/*"
       ],
       "js": [
-        "build.js"
+        "main.js"
       ],
       "css": [
         "css/styles.css"

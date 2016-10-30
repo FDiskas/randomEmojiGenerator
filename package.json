@@ -1,6 +1,6 @@
 {
   "name": "random-emoji-generator",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A Chrome extension for adding button with a random emoji comment.",
   "main": "main.js",
   "scripts": {
@@ -8,10 +8,10 @@
     "precommit": "npm test",
     "test": "node run-tests",
     "release": "node release",
-    "dev": "NODE_ENV=development jspm bundle-sfx src/main dist/src/build.js && npm run build:copy",
+    "dev": "NODE_ENV=development jspm bundle-sfx src/main dist/src/main.js && npm run build:copy",
     "build": "npm run build:clean && npm run build:compile && npm run build:copy && npm run build:pack",
     "build:clean": "rimraf ./dist",
-    "build:compile": "NODE_ENV=production jspm bundle-sfx src/main --minify --skip-source-maps dist/src/build.js",
+    "build:compile": "NODE_ENV=production jspm bundle-sfx src/main --minify --skip-source-maps dist/src/main.js",
     "build:copy": "copyfiles ./src/manifest.json 'src/images/**/*' 'src/css/**/*' dist",
     "build:pack": "node pack"
   },
