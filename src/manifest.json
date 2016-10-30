@@ -1,31 +1,19 @@
 {
-  "name": "Random Emoji Generator",
-  "version": "1.0.2",
+  "name": "Image Host",
+  "description": "Shows some of the features of the Context Menus API",
   "manifest_version": 2,
+  "version": "0.0.1",
   "homepage_url": "https://github.com/FDiskas/randomEmojiGenerator",
-  "author": "FDisk",
-  "description": "Inspired by the Ship It Button extension. On Github page adds a button for a random Emoji icon.",
-  "content_scripts": [
-    {
-      "matches": [
-        "*://github.com/*",
-        "*://gist.github.com/*"
-      ],
-      "js": [
-        "build.js"
-      ],
-      "css": [
-        "css/styles.css"
-      ]
-    }
-  ],
+  "background": {
+    "scripts": ["main.js"]
+  },
   "icons": {
     "16": "images/normal/16x16.png",
     "48": "images/normal/48x48.png",
     "128": "images/normal/128x128.png"
   },
-  "web_accessible_resources": [
-    "images/normal/*.png",
-    "images/xmas/*.png"
+  "permissions" : [
+    "contextMenus",
+    "notifications"
   ]
 }

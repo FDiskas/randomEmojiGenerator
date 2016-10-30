@@ -23,7 +23,7 @@ System.config({
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
-    "jquery": "npm:jquery@3.1.1",
+    "pinceladasdaweb/imgur": "github:pinceladasdaweb/imgur@2.0.4",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },
@@ -521,9 +521,6 @@ System.config({
     },
     "npm:isarray@1.0.0": {
       "systemjs-json": "github:systemjs/plugin-json@0.1.2"
-    },
-    "npm:jquery@3.1.1": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:js-tokens@1.0.1": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",

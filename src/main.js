@@ -1,111 +1,83 @@
-import emojiList from './emojiList';
+class imageHost {
 
-class randomShipit {
   constructor() {
-    this.button = {
-      node: document.createElement('button'),
-      text: 'Random'
-    };
-    this.selectors = {
-      commentFormFooter: '#partial-new-comment-form-actions',
-      commentForm: '.js-new-comment-form',
-      commentField: '#new_comment_field',
-      ajaxLoader: '#js-pjax-loader-bar'
-    };
-    this.classList = {
-      button: ['btn', 'js-random-shipit']
-    };
 
-    this.init = this.init.bind(this);
+    this.clientID = 'e51bbf85b194589';
+    this.clickHandler = this.clickHandler.bind(this);
 
-    this.init();
+    chrome.contextMenus.create({
+      "title": "Host This Image",
+      "contexts": ["image", "link", "editable", "selection"],
+      "onclick" : (e) => { this.clickHandler(e) }
+    });
+
   }
 
-  init() {
-    this.selectorObjects = {
-      commentFormFooter: this.query(this.selectors.commentFormFooter),
-      commentForm: this.query(this.selectors.commentForm),
-      commentField: this.query(this.selectors.commentField),
-      ajaxLoader: this.query(this.selectors.ajaxLoader)
-    };
-    this.removeButton();
-    this.createButton();
-  }
-
-  query(element) {
-    return document.querySelector(element);
-  }
-
-  isDecember() {
+  static isDecember() {
     return new Date().getMonth() === 11;
   }
 
-  addClass(element, classList) {
-    return element.classList.add.apply(
-      element.classList,
-      classList
-    );
-  }
+  clickHandler(e) {
 
-  createButton() {
-    this.addClass(this.button.node, this.classList.button);
-    this.button.node.innerText = this.button.text;
+    if (e.selectionText) {
+      // The user selected some text, put this in the message.
+    }
 
-    let image = document.createElement('img');
-    image.src = chrome.extension.getURL(`images/${this.isDecember() ? 'xmas':'normal'}/38x38.png`);
+    if (e.mediaType === "image") {
+      this.upload(e.srcUrl);
+    }
 
-    this.button.node.appendChild(image);
+    if (e.linkUrl) {
 
-    if (this.appendButton()) {
-      this.bindEvents();
     }
   }
 
-  removeButton() {
-    let button = this.query('.' + this.classList.button.join('.'));
-    if (button) {
-      button.remove();
-    }
+  upload(file) {
+
+    const formData = new FormData();
+    const xhttp = this.xhr();
+
+    formData.append('image', file);
+
+    xhttp.open('POST', 'https://api.imgur.com/3/image');
+    xhttp.setRequestHeader('Authorization', `Client-ID ${this.clientID}`);
+    xhttp.onreadystatechange = function () {
+      var res = JSON.parse(xhttp.responseText), link;
+
+      if ( xhttp.status === 200 && xhttp.readyState === 4 && res.status === 200) {
+        link = res.data.link;
+        imageHost.copyToClipboard(link);
+
+        new Notification('Image successful Hosted', {
+          icon: `images/${imageHost.isDecember() ? 'xmas':'normal'}/48x48.png`,
+          body: 'The link to the hosted image is copied to the clipboard.'
+        });
+
+      } else if (xhttp.readyState === 4) {
+        new Notification('Error status: ' + xhttp.status, {
+          icon: `images/${imageHost.isDecember() ? 'xmas':'normal'}/48x48.png`,
+          body: res.data.error
+        });
+      }
+    };
+
+    xhttp.send(formData);
   }
 
-  appendButton() {
-    return this.selectorObjects.commentFormFooter ?
-      this.selectorObjects.commentFormFooter.appendChild(this.button.node) :
-      false
-    ;
-  }
+  static copyToClipboard(text) {
+    const input = document.createElement('input');
+    input.style.position = 'fixed';
+    input.style.opacity = 0;
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    document.body.removeChild(input);
+  };
 
-  bindEvents() {
-    this.button.node.onclick = e => this.clickFunction(e);
-
-    var observer = new window.MutationObserver(() => setTimeout(this.init, 100));
-
-      // define what element should be observed by the observer
-        // and what types of mutations trigger the callback
-    observer.observe(this.selectorObjects.ajaxLoader, {
-        subtree: false,
-        attributes: true
-    });
-  }
-
-  getRandomEmoji() {
-    return emojiList[Math.floor(Math.random() * emojiList.length)];
-  }
-
-  clickFunction(e) {
-    e.preventDefault();
-    this.typeInTextarea(this.selectorObjects.commentField, this.getRandomEmoji());
-  }
-
-  typeInTextarea(el, newText) {
-    var start = el.selectionStart;
-    var end = el.selectionEnd;
-    var text = el.value;
-    var before = text.substring(0, start);
-    var after  = text.substring(end, text.length);
-    el.value = (before + newText + after);
-    el.selectionStart = el.selectionEnd = start + newText.length;
-    el.focus();
+  xhr() {
+    return new XMLHttpRequest();
   }
 }
-export default new randomShipit();
+
+export default new imageHost();
