@@ -1,4 +1,4 @@
-# ![donation-128px](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MEYBUEDYFS5SG) random Emo Generator
+# [Buy me a beer](https://www.paypal.me/VytenisKuciauskas) random Emo Generator
 A Chrome extension for adding button with a random emoji comment.
 forked from [martinburdon/randomShipitGenerator](https://github.com/martinburdon/randomShipitGenerator)
 
